@@ -1,3 +1,14 @@
+/*     (\____/) 
+       (•(ㅅ)•)      
+   　＿ノ ヽ ノ＼＿    
+  `/　`/ ⌒Ｙ⌒ Ｙ　ヽ  
+  ( 　(三ヽ人　 /　　 | 
+   |　ﾉ⌒＼ ￣￣ヽ　 ノ
+   ヽ＿＿＿＞､＿＿_／
+　　   ｜( 王 ﾉ〈 
+　　   / ﾐ`ー―彡 \
+　　  /  ╰    ╯  /
+code by Barakadax*/
 * {
     margin: 0;
     padding: 0;
@@ -18,17 +29,6 @@ body {
     text-shadow: 1px 1px 4px white;
     font-family: 'Martel Sans', sans-serif;
 }
-
-/*<!--
-     _____ 	    	|￣￣￣￣￣￣￣￣￣￣￣|
-/~/~    ~\   	 | code by Barak Taya        |
-| |   MY     \     | class: 44/1                      |
-\ \  SLEEP   \   | lecturer: Tania                |
- \ \               \ |＿＿＿＿＿＿＿＿＿＿＿|
---\ \              .\''          ||
---==\ \          ,,i!!i,	   ||
-           ''"'',,}{,,
--->*/
 
 input {
     width: auto;
