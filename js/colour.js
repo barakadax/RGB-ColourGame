@@ -10,66 +10,66 @@
 　　  /  ╰    ╯  /
 code by Barakadax*/
 'use strict';
-let answer = 0;
-let colour = [0,0,0];
-let remember = [0,0,0];
-let blobs = [document.getElementById("first_blob"), document.getElementById("second_blob"), document.getElementById("third_blob")];
+let correct = "";
+let colours = [0,0,0];              //Create RGB code needs 3 values
+let circlesRGBValues = [0,0,0];     //3 circles
+let circles = [document.getElementById("first_blob"), document.getElementById("second_blob"), document.getElementById("third_blob")];
 
-function outOf3() {         //Random a number between 0 - 2
-    return Math.floor(Math.random() * 3);
+function getRandomNumber(maxNumber) {
+    return Math.floor(Math.random() * maxNumber);
 }//O(1)
 
-function outOf256() {       //Random a number between 0 to 255
-    return Math.floor(Math.random() * 256);
-}//O(1)
-
-function noDupColour() {    //Function to check no duplicate on random numbers
-    if (colour[0] == colour[1]) {
-        colour[1] = outOf256();
+function noDupColour() {    //Recursive function to check for no duplication
+    if (colours[0] == colours[1]) {
+        colours[1] = getRandomNumber(256);
         noDupColour();
     }
-    if (colour[1] == colour[2]) {
-        colour[2] = outOf256();
+    if (colours[1] == colours[2]) {
+        colours[2] = getRandomNumber(256);
         noDupColour();
     }
-    if (colour[2] == colour[0]) {
-        colour[0] = outOf256();
+    if (colours[2] == colours[0]) {
+        colours[0] = getRandomNumber(256);
         noDupColour();
     }
 }//O(N)
 
-function run() {                                                                //Function for setup
-    for (let run = 0; run < 3; run -= -1)
-        colour[run] = outOf256();
-    noDupColour();
-    remember[0] = 'rgb(' + colour[0] + ',' + colour[1] + ',' + colour[2] + ')'; //3 rows block which "randomize" which colours will the circles be
-    remember[1] = 'rgb(' + colour[1] + ',' + colour[2] + ',' + colour[0] + ')';
-    remember[2] = 'rgb(' + colour[2] + ',' + colour[0] + ',' + colour[1] + ')';
-    for (let run = 0; run < 3; run -= -1)
-        blobs[run].style.background = remember[run];                            //Colouring the circles
-    for (let run = 0; run < 3; run -= -1)
-        blobs[run].style.boxShadow = "5px 5px 105px 5px #ff8c00";               //Colouring aura around each circle
-    answer = remember[outOf3()];                                                //Saving 1 of the circle as correct answer
-    document.getElementById("guess").innerHTML = "Colour: " + answer;
+function initialize() {
+    for (let run = 0; run < colours.length; run -= -1)       //Making number for RGB values
+        colours[run] = getRandomNumber(256);
+    noDupColour();                                          //Making sure no duplicated numbers
+    for (let run = 0; run < circles.length; run -= -1) {      //Making different RGB code for each circle & colouring the circles
+        circles[run].style.background = circlesRGBValues[run] = 'rgb(' + colours[run] + ',' + colours[(run + 1) % circlesRGBValues.length] + ',' + colours[(run + 2) % circlesRGBValues.length] + ')';
+        circles[run].style.boxShadow = "5px 5px 105px 5px #ff8c00";
+    }
+    correct = circlesRGBValues[getRandomNumber(circlesRGBValues.length)];   //Saving 1 of the circles as correct correct
+    document.getElementById("guess").innerHTML = "Colour: " + correct;
     document.getElementById("result").innerHTML = "";
 }//O(N)
 
-function fBlob(check) {                                                         //Function for picking a circle
-    if (answer == remember[check]) {                                            //Picked the correct circle
-        for (let run = 0; run < 3; run -= -1) {                                 //Colouring all the circle the correct colour
-            if (check != run) {
-                remember[run] = remember[check];
-                blobs[run].style.background = remember[check];
-                blobs[run].style.boxShadow = "5px 5px 105px 5px #ff8c00";
-            }
-            document.getElementById("result").innerHTML = "CORRECT";            //Writing the user a "you win" message
-        }
+function vanishCircle(pickedCircleIndex) {
+    circles[pickedCircleIndex].style.boxShadow = "none";
+    circles[pickedCircleIndex].style.background = "none";
+    document.getElementById("result").innerHTML = "WRONG";
+}//O(1)
+
+function correctColouring(run, pickedCircleIndex) {
+    circlesRGBValues[run] = circlesRGBValues[pickedCircleIndex];
+    circles[run].style.background = circlesRGBValues[pickedCircleIndex];
+    circles[run].style.boxShadow = "5px 5px 105px 5px #ff8c00";
+}//O(1)
+
+function pickCircle(pickedCircleIndex) {
+    if (correct != circlesRGBValues[pickedCircleIndex]) {               //Picked the incorrect circle
+        vanishCircle(pickedCircleIndex);
+        return;
     }
-    else {                                                                      //User choose incorrect circle
-        blobs[check].style.boxShadow = "none";
-        blobs[check].style.background = "none";                                 //Vanishing the circle & aura, writing "wrong" message
-        document.getElementById("result").innerHTML = "WRONG";
+    for (let run = 0; run < colours.length; run -= -1) {                //Colouring incorrect circles like correct circle
+        if (pickedCircleIndex == run)
+            continue;
+        correctColouring(run, pickedCircleIndex);
     }
+    document.getElementById("result").innerHTML = "CORRECT";            //Writing the user a "you win" message
 }//O(N)
 
-run();
+initialize();
