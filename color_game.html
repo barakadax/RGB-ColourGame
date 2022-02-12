@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<!--   (\____/) 
-       (•(ㅅ)•)      
-   　＿ノ ヽ ノ＼＿    
-  `/　`/ ⌒Ｙ⌒ Ｙ　ヽ  
-  ( 　(三ヽ人　 /　　 | 
-   |　ﾉ⌒＼ ￣￣ヽ　 ノ
-   ヽ＿＿＿＞､＿＿_／
-　　   ｜( 王 ﾉ〈 
-　　   / ﾐ`ー―彡 \
-　　  /  ╰    ╯  /
-code by Barakadax-->
 <html lang="en">
     <head>
-        <link href="styling/game_style.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Martel+Sans&display=swap" rel="stylesheet">
         <meta charset=utf-8 />
         <title>Colour game</title>
+        <link href="styling/style.css" rel="stylesheet">
+        <meta name="viewport" content="initial-scale=1.0 minimum-scale=1.0 width=device-width" />
     </head>
-
     <body>
         <form action="color_help.html">
             <input id="help" type="submit" value="&#10074;&#10074;">
@@ -25,9 +13,9 @@ code by Barakadax-->
         <h1><u>Colour game</u></h1>
         <p id="guess"></p>
         <div id="holder">
-            <div id="first_blob" class="blob" onclick="pickCircle(0)"></div>
-            <div id="second_blob" class="blob" onclick="pickCircle(1)"></div>
-            <div id="third_blob" class="blob" onclick="pickCircle(2)"></div>
+            <div class="blob" onclick="pickCircle(0)"></div>
+            <div class="blob" onclick="pickCircle(1)"></div>
+            <div class="blob" onclick="pickCircle(2)"></div>
         </div>
         <input id="reset" type="button" value="RESET" onclick="initialize()">
         <p id="result"></p>
