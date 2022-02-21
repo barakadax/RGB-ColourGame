@@ -36,6 +36,7 @@ input {
 h1 {
     font-size: 70px;
     margin: 0 0 15px 0;
+    text-align: center;
 }
 
 #holder {
@@ -86,5 +87,41 @@ h1 {
 @media only screen and (max-width: 1400px) {
     #to_limit {
         width: 600px;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    #guess {
+        font-size: 30px;
+    }
+    #help, #game {
+        top: 2px;
+        left: auto;
+        right: 2px;
+        font-size: 15px;
+    }
+    input {
+        font-size: 30px;
+        margin-top: 10px;
+    }
+    h1 {
+        font-size: 45px;
+        padding-top: 10px;
+    }
+    .blob {
+        margin: 10px 0 10px 0;
+    }
+    #holder {
+        padding-top: 5px;
+        flex-direction: column;
+    }
+    #result {
+        margin: 10px 0 20px 0;
+    }
+    #to_limit {
+        width: auto;
+        font-size: 20px;
+        text-align: center;
+        padding-bottom: 10px;
     }
 }
